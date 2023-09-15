@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 职位管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            border: 0;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告详情</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+        </ul>
+    </nav>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">职位管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 搜索和筛选职位表单 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="jobSearch">搜索职位:</label>
+                                <input type="text" class="form-control" id="jobSearch" placeholder="请输入职位名称">
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-block" onclick="filterJobs()">筛选</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <!-- 职位列表 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 职位表格 -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>职位名称</th>
+                                    <th>职位描述</th>
+                                    <th>薪资</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 这里可以通过后端数据动态生成职位列表 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>职位1</td>
+                                    <td>描述1</td>
+                                    <td>$5000</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" onclick="showJobDetails(1)">查看详情</button>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDeleteJob(1)"
+                                            disabled>删除</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>职位2</td>
+                                    <td>描述2</td>
+                                    <td>$6000</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" onclick="showJobDetails(2)">查看详情</button>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDeleteJob(2)"
+                                            disabled>删除</button>
+                                    </td>
+                                </tr>
+                                <!-- 可以继续添加更多职位数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 添加职位按钮 -->
+                <div class="text-right mt-4">
+                    <button class="btn btn-success" onclick="showAddJobPopup()" disabled>添加职位</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 职位详情弹窗 -->
+    <div class="popup" id="jobDetailsPopup">
+        <h3 id="jobDetailsTitle">职位详情</h3>
+        <div id="jobDetailsContent">
+            <!-- 职位详细信息内容将在此处显示 -->
+        </div>
+        <button class="btn btn-secondary" onclick="closeJobDetailsPopup()">关闭</button>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 搜索和筛选职位
+        function filterJobs() {
+            var searchKeyword = document.getElementById('jobSearch').value;
+            // 在这里执行搜索和筛选职位的操作
+            alert('搜索并筛选职位：' + searchKeyword);
+        }
+
+        // 显示职位详情弹窗
+        function showJobDetails(jobId) {
+            // 在这里获取职位详细信息并填充到弹窗内容中
+            var jobDetailsContent = `
+                <p><strong>ID:</strong> ${jobId}</p>
+                <p><strong>职位名称:</strong> 职位${jobId}</p>
+                <p><strong>职位描述:</strong> 描述${jobId}</p>
+                <p><strong>薪资:</strong> $5000</p>
+                <!-- 可以继续添加更多职位详细信息 -->
+            `;
+            showPopup('职位详情', jobDetailsContent);
+        }
+
+        // 关闭职位详情弹窗
+        function closeJobDetailsPopup() {
+            closePopup();
+        }
+
+        // 弹出添加职位表单
+        function showAddJobPopup() {
+            // 清空弹窗内容
+            var addJobForm = `
+                <div class="form-group">
+                    <label for="newJobName">职位名称:</label>
+                    <input type="text" class="form-control" id="newJobName" placeholder="请输入职位名称">
+                </div>
+                <div class="form-group">
+                    <label for="newJobDescription">职位描述:</label>
+                    <textarea class="form-control" id="newJobDescription" rows="3"
+                        placeholder="请输入职位描述"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="newJobSalary">薪资:</label>
+                    <input type="text" class="form-control" id="newJobSalary" placeholder="请输入薪资">
+                </div>
+                <button type="button" class="btn btn-success btn-block" onclick="addJob()">添加职位</button>
+            `;
+            showPopup('添加职位', addJobForm);
+        }
+
+        // 添加职位
+        function addJob() {
+            // 获取新职位信息并执行添加职位的操作
+            var newJobName = document.getElementById('newJobName').value;
+            var newJobDescription = document.getElementById('newJobDescription').value;
+            var newJobSalary = document.getElementById('newJobSalary').value;
+            // 在这里执行添加职位的操作，使用获取的信息
+            alert('添加新职位：\n职位名称：' + newJobName + '\n职位描述：' + newJobDescription + '\n薪资：' + newJobSalary);
+            // 关闭弹窗
+            closePopup();
+        }
+
+        // 显示弹窗
+        function showPopup(title, content) {
+            var popup = document.getElementById('jobDetailsPopup');
+            var popupTitle = document.getElementById('jobDetailsTitle');
+            var popupContent = document.getElementById('jobDetailsContent');
+            popupTitle.textContent = title;
+            popupContent.innerHTML = content;
+            popup.style.display = 'block';
+        }
+
+        // 关闭弹窗
+        function closePopup() {
+            var popup = document.getElementById('jobDetailsPopup');
+            popup.style.display = 'none';
+        }
+
+        // 确认删除职位
+        function confirmDeleteJob(jobId) {
+            var confirmDelete = confirm('确认删除职位 ' + jobId + ' 吗？');
+            if (confirmDelete) {
+                // 在这里执行删除职位的操作
+                alert('删除职位：' + jobId);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 部门管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告详情</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">部门管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 搜索和筛选表单 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="departmentSearch">搜索部门:</label>
+                                <input type="text" class="form-control" id="departmentSearch" placeholder="请输入部门名称">
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-block"
+                                onclick="filterDepartments()">筛选</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <!-- 部门列表 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 部门表格 -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>部门名称</th>
+                                    <th>部门负责人</th>
+                                    <th>成员数量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="departmentTableBody">
+                                <!-- 这里可以通过后端数据动态生成部门列表 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 添加部门按钮 -->
+                <div class="text-right mt-4" style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="showAddDepartmentPopup()" disabled>添加部门</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 部门详情弹窗 -->
+    <div class="popup" id="departmentDetailsPopup">
+        <h3 id="departmentDetailsTitle">部门详情</h3>
+        <div id="departmentDetailsContent">
+            <!-- 部门详细信息内容将在此处显示 -->
+        </div>
+        <button class="btn btn-secondary" onclick="closeDepartmentDetailsPopup()">关闭</button>
+    </div>
+
+    <!-- 添加部门表单 -->
+    <div class="popup" id="addDepartmentPopup" style="display: none;">
+        <h3>添加部门</h3>
+        <form>
+            <div class="form-group">
+                <label for="newDepartmentName">部门名称:</label>
+                <input type="text" class="form-control" id="newDepartmentName" placeholder="请输入部门名称">
+            </div>
+            <div class="form-group">
+                <label for="newDepartmentLeader">部门负责人:</label>
+                <input type="text" class="form-control" id="newDepartmentLeader" placeholder="请输入部门负责人">
+            </div>
+            <div class="form-group">
+                <label for="newDepartmentMembers">成员数量:</label>
+                <input type="number" class="form-control" id="newDepartmentMembers" placeholder="请输入成员数量">
+            </div>
+            <button type="button" class="btn btn-success btn-block" onclick="addDepartment()">添加部门</button>
+        </form>
+        <button class="btn btn-secondary" onclick="closeAddDepartmentPopup()">取消</button>
+    </div>
+
+    <script>
+        // 部门数据
+        var departments = [
+            { id: 1, name: "部门1", leader: "负责人1", members: 10 },
+            { id: 2, name: "部门2", leader: "负责人2", members: 15 }
+        ];
+
+        // 初始化部门表格
+        function initDepartmentTable() {
+            var tableBody = document.getElementById('departmentTableBody');
+
+            // 清空表格内容
+            tableBody.innerHTML = '';
+
+            // 遍历部门数据并添加到表格
+            departments.forEach(function (department) {
+                var row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${department.id}</td>
+                    <td>${department.name}</td>
+                    <td>${department.leader}</td>
+                    <td>${department.members}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"
+                            onclick="showDepartmentDetails(${department.id})">查看详情</button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="confirmDeleteDepartment(${department.id})" disabled>删除</button>
+                    </td>
+                `;
+            });
+        }
+
+        // 初始加载部门表格
+        initDepartmentTable();
+
+        // 添加新部门
+        function addDepartment() {
+            var name = document.getElementById('newDepartmentName').value;
+            var leader = document.getElementById('newDepartmentLeader').value;
+            var members = document.getElementById('newDepartmentMembers').value;
+
+            // 创建新部门对象
+            var newDepartment = {
+                id: departments.length + 1,
+                name: name,
+                leader: leader,
+                members: members
+            };
+
+            // 将新部门添加到数组中
+            departments.push(newDepartment);
+
+            // 刷新表格
+            initDepartmentTable();
+
+            // 关闭表单弹窗
+            closeAddDepartmentPopup();
+        }
+
+        // 删除部门
+        function deleteDepartment(departmentId) {
+            // 根据 ID 查找并删除部门
+            var indexToDelete = -1;
+            for (var i = 0; i < departments.length; i++) {
+                if (departments[i].id === departmentId) {
+                    indexToDelete = i;
+                    break;
+                }
+            }
+
+            if (indexToDelete !== -1) {
+                departments.splice(indexToDelete, 1);
+                // 刷新表格
+                initDepartmentTable();
+            }
+        }
+
+        // 确认删除部门
+        function confirmDeleteDepartment(departmentId) {
+            var confirmDelete = confirm('确认删除部门 ' + departmentId + ' 吗？');
+            if (confirmDelete) {
+                // 删除部门
+                deleteDepartment(departmentId);
+            }
+        }
+
+        // 显示添加部门表单弹窗
+        function showAddDepartmentPopup() {
+            document.getElementById('newDepartmentName').value = '';
+            document.getElementById('newDepartmentLeader').value = '';
+            document.getElementById('newDepartmentMembers').value = '';
+            document.getElementById('addDepartmentPopup').style.display = 'block';
+        }
+
+        // 关闭添加部门表单弹窗
+        function closeAddDepartmentPopup() {
+            document.getElementById('addDepartmentPopup').style.display = 'none';
+        }
+
+        // 显示部门详情弹窗
+        function showDepartmentDetails(departmentId) {
+            // 在这里获取部门详细信息并填充到弹窗内容中
+            var departmentDetailsContent = `
+                <p><strong>ID:</strong> ${departmentId}</p>
+                <p><strong>部门名称:</strong> 部门${departmentId}</p>
+                <p><strong>部门负责人:</strong> 负责人${departmentId}</p>
+                <p><strong>成员数量:</strong> 10</p>
+                <!-- 可以继续添加更多部门详细信息 -->
+            `;
+
+            // 找到删除按钮并将其禁用
+            var deleteButton = document.querySelector(`.btn-danger[onclick="confirmDeleteDepartment(${departmentId})"]`);
+            if (deleteButton) {
+                deleteButton.disabled = true;
+            }
+
+            showPopup('部门详情', departmentDetailsContent);
+        }
+
+        // 关闭部门详情弹窗
+        function closeDepartmentDetailsPopup() {
+            closePopup();
+        }
+
+        // 显示弹窗
+        function showPopup(title, content) {
+            var popup = document.getElementById('departmentDetailsPopup');
+            var popupTitle = document.getElementById('departmentDetailsTitle');
+            var popupContent = document.getElementById('departmentDetailsContent');
+            popupTitle.textContent = title;
+            popupContent.innerHTML = content;
+            popup.style.display = 'block';
+        }
+
+        // 关闭弹窗
+        function closePopup() {
+            var popup = document.getElementById('departmentDetailsPopup');
+            popup.style.display = 'none';
+        }
+
+        // 筛选部门
+        function filterDepartments() {
+            var searchKeyword = document.getElementById('departmentSearch').value.toLowerCase(); // 获取用户输入的部门名称并转为小写
+
+            var filteredDepartments = departments.filter(function (department) {
+                return department.name.toLowerCase().includes(searchKeyword); // 检查部门名称是否包含搜索关键字
+            });
+
+            // 清空表格内容
+            var tableBody = document.getElementById('departmentTableBody');
+            tableBody.innerHTML = '';
+
+            // 遍历筛选后的部门数据并添加到表格
+            filteredDepartments.forEach(function (department) {
+                var row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${department.id}</td>
+                    <td>${department.name}</td>
+                    <td>${department.leader}</td>
+                    <td>${department.members}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"
+                            onclick="showDepartmentDetails(${department.id})">查看详情</button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="confirmDeleteDepartment(${department.id})" disabled>删除</button>
+                    </td>
+                `;
+            });
+        }
+    </script>
+</body>
+
+</html>

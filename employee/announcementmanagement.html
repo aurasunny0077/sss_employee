@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 公告详情</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告管理</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+        </ul>
+    </nav>
+    <br>
+    <br>
+    <!-- 大卡片包含四个公告 -->
+    <div class="announcement-container">
+        <div class="announcement-card" onclick="toggleContent(1)">
+            <h1 class="announcement-title">重要通知：公司年度庆典</h1>
+            <p class="announcement-date">发布日期：2023年09月15日</p>
+            <div class="announcement-content" id="content-1">
+                <p>尊敬的员工：</p>
+                <p>我们高兴地宣布，公司年度庆典将于2023年10月1日举行。这将是一个充满乐趣和活力的活动，我们期待您的参与。</p>
+                <p>活动亮点：</p>
+                <ul>
+                    <li>音乐会和表演</li>
+                    <li>美食和饮品摊位</li>
+                    <li>团队游戏和竞赛</li>
+                    <li>抽奖活动</li>
+                </ul>
+                <p>请留意后续公告以获取更多详细信息。我们期待在这个特殊的日子与您共度美好时光！</p>
+            </div>
+        </div>
+
+        <div class="announcement-card" onclick="toggleContent(2)">
+            <h1 class="announcement-title">重要更新：网络通讯升级</h1>
+            <p class="announcement-date">发布日期：2023年09月20日</p>
+            <div class="announcement-content" id="content-2">
+                <p>亲爱的同事们：</p>
+                <p>我们很高兴地通知您，我们的网络通讯系统将于2023年10月1日进行升级。这次升级将带来更快的速度和更稳定的连接。</p>
+                <p>升级亮点：</p>
+                <ul>
+                    <li>更快的下载和上传速度</li>
+                    <li>更强大的网络安全</li>
+                    <li>新的通讯工具和功能</li>
+                </ul>
+                <p>请准备好享受这一全新的网络通讯体验！</p>
+            </div>
+        </div>
+
+        <!-- 添加更多公告 -->
+
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(`content-${id}`);
+            const card = content.parentElement;
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                card.classList.remove('open');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                card.classList.add('open');
+            }
+        }
+    </script>
+</body>
+
+</html>

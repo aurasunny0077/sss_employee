@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工统计分析</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style2.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> <!-- 导入 Plotly 图表库 -->
+
+</head>
+
+<body>
+    <nav>
+        <a href="dashboard.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="salaryanalysis.html">员工薪资分析</a></li>
+            <li><a href="attendancemanagement.html">考勤管理</a></li>
+            <li><a href="employeestats.html">员工统计分析</a></li>
+            <li><a href="employeelookup.html">员工查询与信息管理</a></li>
+            <li><a href="permissions.html">权限管理和审批流程</a></li>
+            <li><a href="../admin/toggleeffect.html">返回</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">员工统计分析</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- 季度统计信息 -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">季度统计信息</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>季度</th>
+                                    <th>入职人数</th>
+                                    <th>离职人数</th>
+                                    <th>部门入职人数</th>
+                                    <th>部门离职人数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 动态生成季度统计信息 -->
+                                <tr>
+                                    <td>第一季度</td>
+                                    <td>50</td>
+                                    <td>20</td>
+                                    <td>30</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>第二季度</td>
+                                    <td>60</td>
+                                    <td>25</td>
+                                    <td>35</td>
+                                    <td>15</td>
+                                </tr>
+                                <!-- 可以继续添加更多季度数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- 曲线图 -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">入职离职趋势</h5>
+                        <div id="chartContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 示例数据，应替换为实际数据
+        var quarters = ["第一季度", "第二季度", "第三季度", "第四季度"];
+        var newHires = [50, 60, 70, 55];
+        var departures = [20, 25, 15, 30];
+        var deptNewHires = [30, 35, 40, 25];
+        var deptDepartures = [10, 15, 10, 20];
+
+        // 创建曲线图
+        var trace1 = {
+            x: quarters,
+            y: newHires,
+            mode: 'lines+markers',
+            name: '入职人数',
+            line: { shape: 'spline' }
+        };
+
+        var trace2 = {
+            x: quarters,
+            y: departures,
+            mode: 'lines+markers',
+            name: '离职人数',
+            line: { shape: 'spline' }
+        };
+
+        var trace3 = {
+            x: quarters,
+            y: deptNewHires,
+            mode: 'lines+markers',
+            name: '部门入职人数',
+            line: { shape: 'spline' }
+        };
+
+        var trace4 = {
+            x: quarters,
+            y: deptDepartures,
+            mode: 'lines+markers',
+            name: '部门离职人数',
+            line: { shape: 'spline' }
+        };
+
+        var data = [trace1, trace2, trace3, trace4];
+
+        var layout = {
+            title: '入职离职趋势',
+            xaxis: {
+                title: '季度'
+            },
+            yaxis: {
+                title: '人数'
+            }
+        };
+
+        Plotly.newPlot('chartContainer', data, layout);
+    </script>
+</body>
+
+</html>

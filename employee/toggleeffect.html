@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>华夏夜之梦</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #d8dede;
+      background-image: linear-gradient(315deg, #d8dede 0%, #f6bdd9 74%);
+    }
+
+    .price-one {
+      padding-bottom: 200px;
+      position: relative;
+    }
+
+    .block {
+      padding-top: 70px;
+    }
+
+    .title {
+      margin: 0;
+      color: #2a2d3b;
+      font-size: 50px;
+      font-weight: 500;
+      margin-bottom: 45px;
+    }
+
+    .text {
+      margin: 0;
+      font-size: 20px;
+      line-height: 34px;
+      color: #868994;
+    }
+
+    .tab-btn {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      margin-top: 50px;
+    }
+
+    .single {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: #fbf8f4;
+      color: #2a2d3b;
+      font-size: 16px;
+      font-weight: 400;
+      text-transform: uppercase;
+      padding: 13.5px 52px;
+      -webkit-transition: all .4s ease;
+      transition: all .4s ease;
+    }
+
+    .single:first-child {
+      border-top-left-radius: 30.5px;
+      border-bottom-left-radius: 30.5px;
+    }
+
+    .single:last-child {
+      border-top-right-radius: 30.5px;
+      border-bottom-right-radius: 30.5px;
+    }
+
+    .single:hover,
+    .single.active {
+      background-color: #4caf50;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .content {
+      position: relative;
+    }
+
+    .one {
+      width: 100%;
+      max-width: 370px;
+      -webkit-filter: drop-shadow(10px 0px 60px rgba(42, 45, 59, 0.1));
+      filter: drop-shadow(10px 0px 60px rgba(42, 45, 59, 0.1));
+      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-transform: scale(0.85) translateX(270px) translateY(-15px);
+      transform: scale(0.85) translateX(270px) translateY(-15px);
+      -webkit-transition: -webkit-transform .4s ease-in-out;
+      transition: -webkit-transform .4s ease-in-out;
+      transition: transform .4s ease-in-out;
+      transition: transform .4s ease-in-out, -webkit-transform .4s ease-in-out;
+    }
+
+    .one.active {
+      z-index: 20;
+      -webkit-transform: scale(1) translateX(0) translateY(0);
+      transform: scale(1) translateX(0) translateY(0);
+    }
+
+    .inner {
+      text-align: center;
+      padding-top: 50px;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 80px;
+      background-color: #fff;
+      -webkit-clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%);
+    }
+
+    .price {
+      font-size: 80px;
+      color: #4caf50;
+      margin-bottom: 15px;
+    }
+
+    .currency {
+      font-size: 25px;
+      display: inline-block;
+      vertical-align: super;
+    }
+
+    .time {
+      font-size: 14px;
+      color: #2a2d3b;
+      font-weight: 500;
+      text-transform: uppercase;
+      vertical-align: baseline;
+      letter-spacing: .04em;
+      margin-left: 5px;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 20px;
+      color: #2a2d3b;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-top: 20px;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-bottom: 30px;
+      margin-top: 20px;
+    }
+
+    .item {
+      font-size: 18px;
+      color: #868994;
+      line-height: 1em;
+    }
+
+    .item+.item {
+      margin-top: 27px;
+    }
+
+    .price-one__btn {
+      margin-top: 30px;
+    }
+
+    .thm-btn {
+      display: inline-block;
+      vertical-align: middle;
+      border: none;
+      outline: none !important;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 13.5px 56px;
+      border-radius: 30.5px;
+      -webkit-transition: all .4s ease;
+      transition: all .4s ease;
+      letter-spacing: 1px;
+    }
+
+    .thm-btn:hover {
+      color: #fff;
+      background-color: #d1566b;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    hr {
+      border-top: white !important;
+    }
+
+
+    /* 导航栏 */
+    nav {
+      background-color: #4d6a60;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      transition: background-color 0.3s;
+      /* 添加背景色过渡效果 */
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .horizontal-menu {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      margin-left: 20px;
+      /* 调整左边距 */
+    }
+
+    .horizontal-menu li {
+      margin-right: 20px;
+    }
+
+    .horizontal-menu li:last-child {
+      margin-right: 0;
+    }
+
+    .horizontal-menu a {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      /* 使子元素定位相对于父元素 */
+      transition: color 0.3s;
+      /* 添加文字颜色过渡效果 */
+    }
+
+    /* 鼠标悬停时的效果 */
+    .horizontal-menu a:hover {
+      color: #37c4af;
+      /* 更改文字颜色 */
+    }
+
+    /* 添加下划线动画效果 */
+    .horizontal-menu a::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #37c4af;
+      /* 下划线颜色 */
+      transition: width 0.3s;
+      /* 添加下划线宽度过渡效果 */
+    }
+
+    .horizontal-menu a:hover::before {
+      width: 100%;
+      /* 鼠标悬停时展开下划线 */
+    }
+
+    main {
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 导航栏 -->
+  <nav>
+    <a href="../login.html" class="logo">
+      <img src="../css/logo.png" alt="员工之家">
+    </a>
+    <ul class="horizontal-menu">
+      <li><a href="usermanagement.html">用户管理</a></li>
+      <li><a href="departmentmanagement.html">部门管理</a></li>
+      <li><a href="jobmanagement.html">职位管理</a></li>
+      <li><a href="employeemanagement.html">员工管理</a></li>
+      <li><a href="announcementmanagement.html">公告管理</a></li>
+      <li><a href="downloadcenter.html">下载中心</a></li>
+    </ul>
+  </nav>
+  <br><br>
+  <section class="price-one" id="pricing">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2 class="title">华夏夜之梦公司</h2>
+          <p class="text">华夏夜之梦是一家致力于互联网通讯领域的创新公司。我们专注于提供高品质的网络通讯解决方案，
+            为客户提供连接世界的便捷方式。我们的使命是通过先进的技术和卓越的服务，满足各种规模和类型的客户需求。
+          </p>
+          <div class="tab-btn" id="tab-title">
+            <a href="#monthly" class="single active">月付</a>
+            <a href="#yearly" class="single">年付</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="content">
+            <div class="one active" id="monthly">
+              <div class="inner">
+                <div class="price">
+                  <span class="currency">$</span><span class="amount">49</span>
+                  <span class="time">/每月</span>
+                </div>
+                <hr class="line" />
+                <h3 class="name">中小企业套餐</h3>
+                <ul class="list">
+                  <li class="item">10 个页面</li>
+                  <li class="item">500 GB 存储空间</li>
+                  <li class="item">10 个 SSD 数据库</li>
+                  <li class="item">免费定制域名</li>
+                  <li class="item">24/7 免费支持</li>
+                </ul>
+                <hr class="line" />
+                <a href="#" class="price-one__btn thm-btn">选择套餐</a>
+              </div>
+            </div>
+            <div class="one" id="yearly">
+              <div class="inner">
+                <div class="price">
+                  <span class="currency">$</span><span class="amount">99</span><span class="time">/每年</span>
+                </div>
+                <hr class="line" />
+                <h3 class="name">专业企业套餐</h3>
+                <ul class="list">
+                  <li class="item">10 个页面</li>
+                  <li class="item">500 GB 存储空间</li>
+                  <li class="item">10 个 SSD 数据库</li>
+                  <li class="item">免费定制域名</li>
+                  <li class="item">24/7 免费支持</li>
+                </ul>
+                <hr class="line" />
+                <a href="#" class="price-one__btn thm-btn">选择套餐</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script>
+    (function ($) {
+      "use strict";
+
+      if ($('#tab-title').length) {
+        var pricingTabTitle = $('#tab-title').find('a');
+        var pricebox = $('.content').find('.one');
+        pricingTabTitle.each(function () {
+          var Self = $(this);
+          var tabelID = Self.attr('href');
+          Self.on('click', function () {
+            pricingTabTitle.removeClass('active');
+            Self.addClass('active');
+            pricebox.removeClass('active');
+            $(tabelID).addClass('active');
+            return false;
+          });
+        })
+      }
+    })(jQuery);
+  </script>
+</body>
+
+</html>

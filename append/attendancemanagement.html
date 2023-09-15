@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 考勤管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style2.css">
+
+</head>
+
+<body>
+    <nav>
+        <a href="dashboard.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="salaryanalysis.html">员工薪资分析</a></li>
+            <li><a href="attendancemanagement.html">考勤管理</a></li>
+            <li><a href="employeestats.html">员工统计分析</a></li>
+            <li><a href="employeelookup.html">员工查询与信息管理</a></li>
+            <li><a href="permissions.html">权限管理和审批流程</a></li>
+            <li><a href="../admin/toggleeffect.html">返回</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">考勤管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 日期选择和考勤状态 -->
+                        <form>
+                            <div class="form-group">
+                                <label for="attendanceDate">选择日期:</label>
+                                <input type="date" class="form-control" id="attendanceDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceStatus">考勤状态:</label>
+                                <select class="form-control attendance-status" id="attendanceStatus">
+                                    <option>正常上班</option>
+                                    <option>迟到</option>
+                                    <option>缺勤</option>
+                                    <option>请假</option>
+                                    <!-- 添加更多考勤状态选项 -->
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block"
+                                onclick="recordAttendance()">记录考勤</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="calendar mt-4">
+                    <!-- 这里可以创建一个日期选择的日历 -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card attendance-table">
+                    <div class="card-body">
+                        <!-- 生成考勤表格 -->
+                        <h4 class="text-center">考勤表</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>考勤状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 这里可以动态生成考勤记录 -->
+                                <tr>
+                                    <td>2023-09-15</td>
+                                    <td>正常上班</td>
+                                </tr>
+                                <tr>
+                                    <td>2023-09-16</td>
+                                    <td>迟到</td>
+                                </tr>
+                                <!-- 可以继续添加更多考勤记录 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 记录考勤
+        function recordAttendance() {
+            var selectedDate = document.getElementById('attendanceDate').value;
+            var selectedStatus = document.getElementById('attendanceStatus').value;
+
+            // 在这里执行记录考勤的操作，将数据添加到考勤表格
+            var table = document.querySelector('.attendance-table tbody');
+            var newRow = table.insertRow(-1);
+            var dateCell = newRow.insertCell(0);
+            var statusCell = newRow.insertCell(1);
+            dateCell.textContent = selectedDate;
+            statusCell.textContent = selectedStatus;
+        }
+    </script>
+</body>
+
+</html>

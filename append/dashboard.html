@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>员工之家</title>
+    <!-- 引用外部样式表 -->
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="../css/style2.css">
+
+    <!-- 引用jQuery库（请确保jQuery库文件可用） -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* 添加轮播图样式 */
+        .slider {
+            width: 800px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+        }
+
+        .slider .slide {
+            display: none;
+        }
+
+        .slider img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* 居中主要内容区域 */
+        main {
+            text-align: center;
+            padding: 2px;
+        }
+
+        /* 添加员工按钮样式 */
+        .btn.btn-primary {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 导航栏 -->
+    <nav>
+        <a href="../login.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="salaryanalysis.html">员工薪资分析</a></li>
+            <li><a href="attendancemanagement.html">考勤管理</a></li>
+            <li><a href="employeestats.html">员工统计分析</a></li>
+            <li><a href="employeelookup.html">员工查询与信息管理</a></li>
+            <li><a href="permissions.html">权限管理和审批流程</a></li>
+            <li><a href="../admin/toggleeffect.html">返回</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <!-- 主要内容区域 -->
+        <main>
+            <h1>员工之家 - 欢迎来到更多界面</h1>
+            <p>这里是员工之家的更多界面，您可以在导航栏上找到各种管理选项。</p>
+
+
+
+            <!-- 轮播图 -->
+            <div class="slider">
+                <div class="slide"><img
+                        src="https://file-grom.coloros.com/3cfd7ca6/c1860ca26d648a0e36324fc5b0adabd5.jpg?x-oss-process=image/format,webp"
+                        alt="公司产品"></div>
+                <div class="slide"><img
+                        src="https://file-grom.coloros.com/853b85b6/7e0a7ffeb5fa34c6e84596f0050f9fef.jpg?x-oss-process=image/format,webp"
+                        alt="公司团队"></div>
+                <div class="slide"><img
+                        src="https://file-grom.coloros.com/b77b8456/a4bc65fff44ccdcfc69ae5c543dc6f04.jpg?x-oss-process=image/format,webp"
+                        alt="公司活动"></div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // 使用JavaScript实现轮播效果
+        $(document).ready(function () {
+            var currentSlide = 0;
+            var slides = $(".slide");
+            var slideCount = slides.length;
+
+            function showSlide(slideIndex) {
+                slides.hide();
+                slides.eq(slideIndex).show();
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slideCount;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+                showSlide(currentSlide);
+            }
+
+            // 自动轮播，每5秒切换一次
+            var autoSlideInterval = setInterval(nextSlide, 5000);
+
+            // 鼠标悬停时停止自动轮播
+            $(".slider").hover(function () {
+                clearInterval(autoSlideInterval);
+            }, function () {
+                autoSlideInterval = setInterval(nextSlide, 5000);
+            });
+
+            showSlide(currentSlide);
+
+
+        });
+    </script>
+</body>
+
+</html>

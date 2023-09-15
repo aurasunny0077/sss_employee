@@ -1,0 +1,266 @@
+/* 添加你的自定义样式 */
+body {
+    background-image: url('ap.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f0f0f0;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+.container {
+    margin: 40px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    border: 0;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 16px;
+}
+
+.form-control {
+    border: 1px solid #e7d3d3;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: transparent;
+    /* 设置输入框背景色为透明 */
+}
+
+/* 重新设计按钮样式 */
+.btn {
+    font-size: 18px;
+    padding: 5px 14px;
+    /* 调整按钮内边距 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #00b398;
+    /* 主要按钮颜色 */
+    color: white;
+    border: 2px solid #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #37c4af;
+    /* 悬停时的背景颜色 */
+    border: 2px solid #ffffff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    /* 次要按钮颜色 */
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    /* 悬停时的背景颜色 */
+}
+
+/* 导航栏 */
+nav {
+    background-color: #4d6a60;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+    /* 添加背景色过渡效果 */
+}
+
+.logo img {
+    height: 50px;
+}
+
+.horizontal-menu {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin-left: 20px;
+    /* 调整左边距 */
+}
+
+.horizontal-menu li {
+    margin-right: 20px;
+}
+
+.horizontal-menu li:last-child {
+    margin-right: 0;
+}
+
+.horizontal-menu a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    /* 使子元素定位相对于父元素 */
+    transition: color 0.3s;
+    /* 添加文字颜色过渡效果 */
+}
+
+/* 鼠标悬停时的效果 */
+.horizontal-menu a:hover {
+    color: #37c4af;
+    /* 更改文字颜色 */
+}
+
+/* 添加下划线动画效果 */
+.horizontal-menu a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #37c4af;
+    /* 下划线颜色 */
+    transition: width 0.3s;
+    /* 添加下划线宽度过渡效果 */
+}
+
+.horizontal-menu a:hover::before {
+    width: 100%;
+    /* 鼠标悬停时展开下划线 */
+}
+
+main {
+    padding: 20px;
+}
+
+/* 表格样式 */
+.table {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
+
+.table thead th {
+    background-color: #86c3f4;
+    color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* 弹出框样式 */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* 新增部分样式 */
+.text-right {
+    margin-top: 20px;
+    /* 调整顶部边距 */
+}
+
+/* 卡片效果 */
+.card {
+    border: 0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+    /* 添加底部边距 */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* 自定义公告详情页面的样式 */
+.announcement-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    /* 添加外部卡片的圆角边框 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* 添加外部卡片的阴影 */
+}
+
+.announcement-card {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    /* 添加圆角边框 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* 添加阴影 */
+    transition: transform 0.2s ease-in-out;
+}
+
+.announcement-card:hover {
+    transform: scale(1.02);
+}
+
+.announcement-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.announcement-date {
+    color: #888;
+    font-size: 16px;
+}
+
+.announcement-content {
+    font-size: 18px;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.announcement-card.open .announcement-content {
+    max-height: 1000px;
+    /* 调整为足够高的值 */
+}
+
+.announcement-content p {
+    margin: 10px 0;
+}

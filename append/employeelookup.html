@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工查询与信息管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style2.css">
+</head>
+
+<body>
+    <nav>
+        <a href="dashboard.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="salaryanalysis.html">员工薪资分析</a></li>
+            <li><a href="attendancemanagement.html">考勤管理</a></li>
+            <li><a href="employeestats.html">员工统计分析</a></li>
+            <li><a href="employeelookup.html">员工查询与信息管理</a></li>
+            <li><a href="permissions.html">权限管理和审批流程</a></li>
+            <li><a href="../admin/toggleeffect.html">返回</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">员工查询与信息管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 员工查询表单 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="employeeId">员工ID:</label>
+                                <input type="text" class="form-control" id="employeeId" placeholder="请输入员工ID">
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-block"
+                                onclick="lookupEmployeeInfo()">查询</button>
+                        </form>
+                    </div>
+                    <!-- 员工信息展示区域 -->
+                    <div class="card-body">
+                        <h5 class="card-title">员工信息</h5>
+                        <div id="employeeInfo">
+                            <!-- 这里将显示员工的信息，例如薪资、考勤、打卡记录、生日奖励等 -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 合同文件上传 -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">合同文件上传</h5>
+                    <form>
+                        <div class="form-group">
+                            <label for="contractFile">选择文件:</label>
+                            <input type="file" class="form-control-file" id="contractFile">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-success btn-block" style="margin-top: 20px;"
+                            onclick="uploadContractFile()">上传文件</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 请假请求管理 -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">请假请求管理</h5>
+                    <button type="button" class="btn btn-primary" onclick="manageLeaveRequests()">管理请假请求</button>
+                    <!-- 请假请求列表将在这里显示 -->
+                    <div id="leaveRequests">
+                        <!-- 请假请求将在这里列出 -->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 查询员工信息
+        function lookupEmployeeInfo() {
+            var employeeId = document.getElementById('employeeId').value;
+
+            // 在这里执行查询员工信息的操作，然后在页面上显示
+            var employeeInfo = `
+                <p><strong>ID:</strong> ${employeeId}</p>
+                <p><strong>姓名:</strong> 员工${employeeId}</p>
+                <p><strong>薪资:</strong> $5000</p>
+                <p><strong>考勤情况:</strong> 正常</p>
+                <p><strong>打卡记录:</strong> 08:00 AM - 05:00 PM</p>
+                <p><strong>生日奖励:</strong> 礼品卡</p>
+                <!-- 可以添加更多员工信息 -->
+            `;
+            document.getElementById('employeeInfo').innerHTML = employeeInfo;
+        }
+
+        // 上传合同文件
+        function uploadContractFile() {
+            var contractFile = document.getElementById('contractFile').value;
+
+            // 在这里执行上传合同文件的操作
+            alert('上传合同文件: ' + contractFile);
+        }
+
+        // 请假请求数据
+        var leaveRequestData = [
+            {
+                id: 1,
+                name: "员工1",
+                startDate: "2023-09-20",
+                endDate: "2023-09-22",
+                status: "待批准"
+            },
+            {
+                id: 2,
+                name: "员工2",
+                startDate: "2023-09-25",
+                endDate: "2023-09-27",
+                status: "待批准"
+            },
+            // 添加更多请假请求数据
+        ];
+
+        // 管理请假请求
+        function manageLeaveRequests() {
+            var leaveRequests = document.getElementById('leaveRequests');
+
+            // 清空之前的内容
+            leaveRequests.innerHTML = "";
+
+            // 遍历请假请求数据并显示
+            leaveRequestData.forEach(function (request) {
+                var requestElement = document.createElement('div');
+                requestElement.innerHTML = `
+            <p><strong>员工姓名:</strong> ${request.name}</p>
+            <p><strong>开始日期:</strong> ${request.startDate}</p>
+            <p><strong>结束日期:</strong> ${request.endDate}</p>
+            <p><strong>状态:</strong> ${request.status}</p>
+            <button type="button" class="btn btn-primary btn-success" onclick="approveLeaveRequest(${request.id})">批准</button>
+        `;
+
+                leaveRequests.appendChild(requestElement);
+            });
+        }
+
+        // 批准请假请求
+        function approveLeaveRequest(requestId) {
+            // 在这里执行批准请假请求的操作，更新状态为"已批准"
+            leaveRequestData.forEach(function (request) {
+                if (request.id === requestId) {
+                    request.status = "已批准";
+                }
+            });
+
+            // 重新显示请假请求列表
+            manageLeaveRequests();
+        }
+
+    </script>
+
+
+</body>
+
+</html>

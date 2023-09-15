@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 公告管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style1.css">
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告管理</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+            <li><a href="../append/dashboard.html">更多</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">公告管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- 公告列表 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 公告表格 -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>发布日期</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 这里可以通过后端数据动态生成公告列表 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>公告标题1</td>
+                                    <td>2023-09-15</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"
+                                            onclick="showAnnouncementDetails(1)">查看详情</button>
+                                        <button class="btn btn-danger btn-sm"
+                                            onclick="confirmDeleteAnnouncement(1)">删除</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>公告标题2</td>
+                                    <td>2023-09-16</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"
+                                            onclick="showAnnouncementDetails(2)">查看详情</button>
+                                        <button class="btn btn-danger btn-sm"
+                                            onclick="confirmDeleteAnnouncement(2)">删除</button>
+                                    </td>
+                                </tr>
+                                <!-- 可以继续添加更多公告数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 添加公告按钮 -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-success" onclick="showAddAnnouncementForm()">添加公告</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 公告详情弹窗 -->
+    <div class="popup" id="announcementDetailsPopup">
+        <h3 id="announcementDetailsTitle">公告详情</h3>
+        <div id="announcementDetailsContent">
+            <!-- 公告详细信息内容将在此处显示 -->
+        </div>
+        <button class="btn btn-secondary" onclick="closeAnnouncementDetailsPopup()">关闭</button>
+    </div>
+
+    <!-- 添加公告表单弹窗 -->
+    <div class="popup" id="addAnnouncementPopup">
+        <h3>添加新公告</h3>
+        <form>
+            <div class="form-group">
+                <label for="announcementTitle">标题:</label>
+                <input type="text" class="form-control" id="announcementTitle" placeholder="请输入公告标题">
+            </div>
+            <div class="form-group">
+                <label for="announcementContent">内容:</label>
+                <textarea class="form-control" id="announcementContent" rows="4" placeholder="请输入公告内容"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="addAnnouncement()">发布</button>
+        </form>
+        <button class="btn btn-secondary" onclick="closeAddAnnouncementPopup()">取消</button>
+    </div>
+
+    <script>
+        // 查看公告详情
+        function showAnnouncementDetails(announcementId) {
+            // 在这里执行获取公告详情的操作，然后在弹窗中显示
+            var announcementDetails = `
+                <p><strong>ID:</strong> ${announcementId}</p>
+                <p><strong>标题:</strong> 公告标题${announcementId}</p>
+                <p><strong>发布日期:</strong> 2023-09-15</p>
+                <p><strong>内容:</strong> 这是公告的详细内容。</p>
+                <!-- 可以添加更多公告详细信息 -->
+            `;
+            showPopup('announcementDetailsPopup', announcementDetails);
+        }
+
+        // 关闭公告详情弹窗
+        function closeAnnouncementDetailsPopup() {
+            closePopup('announcementDetailsPopup');
+        }
+
+        // 提交添加公告表单
+        function addAnnouncement() {
+            var title = document.getElementById('announcementTitle').value;
+            var content = document.getElementById('announcementContent').value;
+
+            // 在这里执行添加公告的操作，使用获取的信息
+            alert('添加新公告：\n标题：' + title + '\n内容：' + content);
+
+            // 添加完成后关闭表单弹窗
+            closeAddAnnouncementPopup();
+        }
+
+        // 显示弹窗
+        function showPopup(id, content) {
+            var popup = document.getElementById(id);
+            popup.style.display = 'block';
+
+            if (content) {
+                var popupContent = popup.querySelector('.popup-content');
+                if (popupContent) {
+                    popupContent.innerHTML = content;
+                }
+            }
+        }
+
+        // 关闭弹窗
+        function closePopup(id) {
+            var popup = document.getElementById(id);
+            popup.style.display = 'none';
+        }
+
+        // 确认删除公告
+        function confirmDeleteAnnouncement(announcementId) {
+            var confirmDelete = confirm('确认删除公告 ' + announcementId + ' 吗？');
+            if (confirmDelete) {
+                // 在这里执行删除公告的操作
+                alert('删除公告：' + announcementId);
+            }
+        }
+
+        // 显示添加公告表单弹窗
+        function showAddAnnouncementForm() {
+            document.getElementById('announcementTitle').value = '';
+            document.getElementById('announcementContent').value = '';
+            showPopup('addAnnouncementPopup');
+        }
+
+        // 关闭添加公告表单弹窗
+        function closeAddAnnouncementPopup() {
+            closePopup('addAnnouncementPopup');
+        }
+    </script>
+    <script>
+        // 公告数据
+        var announcements = [
+            { id: 1, title: "公告标题1", date: "2023-09-15", content: "这是公告的详细内容1。" },
+            { id: 2, title: "公告标题2", date: "2023-09-16", content: "这是公告的详细内容2。" }
+        ];
+
+        // 初始化公告表格
+        function initAnnouncementTable() {
+            var tableBody = document.querySelector('.table tbody');
+
+            // 清空表格内容
+            tableBody.innerHTML = '';
+
+            // 遍历公告数据并添加到表格
+            announcements.forEach(function (announcement) {
+                var row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${announcement.id}</td>
+                    <td>${announcement.title}</td>
+                    <td>${announcement.date}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="showAnnouncementDetails(${announcement.id})">查看详情</button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmDeleteAnnouncement(${announcement.id})">删除</button>
+                    </td>
+                `;
+            });
+        }
+
+        // 初始加载公告表格
+        initAnnouncementTable();
+
+        // 添加新公告
+        function addAnnouncement() {
+            var title = document.getElementById('announcementTitle').value;
+            var content = document.getElementById('announcementContent').value;
+
+            // 创建新公告对象
+            var newAnnouncement = {
+                id: announcements.length + 1,
+                title: title,
+                date: getCurrentDate(),
+                content: content
+            };
+
+            // 将新公告添加到数组中
+            announcements.push(newAnnouncement);
+
+            // 刷新表格
+            initAnnouncementTable();
+
+            // 关闭表单弹窗
+            closeAddAnnouncementPopup();
+        }
+
+        // 获取当前日期（格式：YYYY-MM-DD）
+        function getCurrentDate() {
+            var today = new Date();
+            var year = today.getFullYear();
+            var month = today.getMonth() + 1;
+            var day = today.getDate();
+
+            return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+        }
+
+        // 删除公告
+        function deleteAnnouncement(announcementId) {
+            // 根据 ID 查找并删除公告
+            var indexToDelete = -1;
+            for (var i = 0; i < announcements.length; i++) {
+                if (announcements[i].id === announcementId) {
+                    indexToDelete = i;
+                    break;
+                }
+            }
+
+            if (indexToDelete !== -1) {
+                announcements.splice(indexToDelete, 1);
+                // 刷新表格
+                initAnnouncementTable();
+            }
+        }
+
+        // 确认删除公告
+        function confirmDeleteAnnouncement(announcementId) {
+            var confirmDelete = confirm('确认删除公告 ' + announcementId + ' 吗？');
+            if (confirmDelete) {
+                // 删除公告
+                deleteAnnouncement(announcementId);
+            }
+        }
+    </script>
+</body>
+
+</html>

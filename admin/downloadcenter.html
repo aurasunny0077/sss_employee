@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 下载中心</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style1.css">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告管理</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+            <li><a href="../append/dashboard.html">更多</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2 class="text-center mb-4">下载中心</h2>
+
+        <!-- 文件列表卡片 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        文件列表
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>文件名</th>
+                                    <th>上传日期</th>
+                                    <th>文件大小</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fileList">
+                                <!-- 动态生成文件列表 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>文件1.pdf</td>
+                                    <td>2023-09-15</td>
+                                    <td>2 MB</td>
+                                    <td>
+                                        <!-- 下载文件 -->
+                                        <a href="#" class="btn btn-primary btn-sm"
+                                            onclick="downloadFile('文件1.pdf')">下载</a>
+                                        <!-- 删除文件 -->
+                                        <button class="btn btn-danger btn-sm"
+                                            onclick="confirmDeleteFile(1, '文件1.pdf')">删除</button>
+                                    </td>
+                                </tr>
+                                <!-- 继续添加更多文件数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 上传新文件卡片 -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        上传新文件
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <!-- 上传新文件的表单元素 -->
+                            <div class="form-group">
+                                <label for="fileUpload">选择文件:</label>
+                                <input type="file" class="form-control-file" id="fileUpload">
+                            </div>
+                            <!-- 添加更多表单字段 -->
+                            <button type="button" class="btn btn-primary" onclick="uploadFile()">上传</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 导出文件信息卡片 -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        导出文件信息
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-success" onclick="exportFileInformation()">导出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文件统计和报告卡片 -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        文件统计和报告
+                    </div>
+                    <div class="card-body">
+                        <!-- 添加图表和报告内容 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 下载文件
+        function downloadFile(fileName) {
+            alert('下载文件: ' + fileName);
+            // 在这里添加文件下载的实际操作
+        }
+
+        // 确认删除文件
+        function confirmDeleteFile(fileId, fileName) {
+            var confirmDelete = confirm('您确定要删除文件 ' + fileName + ' 吗？');
+            if (confirmDelete) {
+                // 在这里执行删除文件的操作
+                deleteFile(fileId);
+            }
+        }
+
+        // 删除文件
+        function deleteFile(fileId) {
+            // 找到要删除的文件行并从文件列表中移除
+            var fileList = document.getElementById('fileList');
+            var fileRows = fileList.getElementsByTagName('tr');
+
+            for (var i = 0; i < fileRows.length; i++) {
+                var row = fileRows[i];
+                var idCell = row.cells[0];
+                if (idCell.textContent == fileId) {
+                    fileList.removeChild(row);
+                    alert('文件 ID ' + fileId + ' 已删除。');
+                    break;
+                }
+            }
+        }
+
+        // 上传新文件
+        function uploadFile() {
+            // 获取上传文件的信息并执行上传操作
+            var fileUploadInput = document.getElementById('fileUpload');
+            var uploadedFile = fileUploadInput.files[0];
+
+            if (uploadedFile) {
+                // 在这里执行上传文件的实际操作
+
+                // 创建新文件记录
+                var fileId = generateFileId(); // 生成唯一的文件ID，可以使用时间戳等方法
+                var fileName = uploadedFile.name;
+                var uploadDate = new Date().toLocaleDateString();
+                var fileSize = (uploadedFile.size / (1024 * 1024)).toFixed(2) + ' MB';
+
+                // 创建新的文件行
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${fileId}</td>
+                    <td>${fileName}</td>
+                    <td>${uploadDate}</td>
+                    <td>${fileSize}</td>
+                    <td>
+                        <!-- 下载文件 -->
+                        <a href="#" class="btn btn-primary btn-sm"
+                            onclick="downloadFile('${fileName}')">下载</a>
+                        <!-- 删除文件 -->
+                        <button class="btn btn-danger btn-sm"
+                            onclick="confirmDeleteFile(${fileId}, '${fileName}')">删除</button>
+                    </td>
+                `;
+
+                // 将新行添加到文件列表中
+                var fileList = document.getElementById('fileList');
+                fileList.appendChild(newRow);
+
+                alert('上传文件: ' + fileName);
+            } else {
+                alert('请选择要上传的文件');
+            }
+        }
+
+        // 生成唯一的文件ID
+        function generateFileId() {
+            // 在这里可以使用时间戳等方法生成唯一的ID
+            return Date.now();
+        }
+
+        // 导出文件信息
+        function exportFileInformation() {
+            alert('导出文件信息');
+            // 在这里添加导出文件信息的实际操作
+        }
+
+    </script>
+</body>
+
+</html>

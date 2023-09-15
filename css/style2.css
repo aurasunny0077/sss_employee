@@ -1,0 +1,306 @@
+body {
+    background-image: url('de.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f0f0f0;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 40px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    border: 0;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 16px;
+}
+
+.form-control {
+    border: 1px solid #e7d3d3;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: transparent;
+}
+
+.btn {
+    font-size: 18px;
+    padding: 5px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #00b398;
+    color: white;
+    border: 2px solid #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #37c4af;
+    border: 2px solid #ffffff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+/* 导航栏 */
+nav {
+    background-color: #4d6a60;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+    /* 添加背景色过渡效果 */
+}
+
+.logo img {
+    height: 50px;
+}
+
+.horizontal-menu {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin-left: 20px;
+    /* 调整左边距 */
+}
+
+.horizontal-menu li {
+    margin-right: 20px;
+}
+
+.horizontal-menu li:last-child {
+    margin-right: 0;
+}
+
+.horizontal-menu a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    /* 使子元素定位相对于父元素 */
+    transition: color 0.3s;
+    /* 添加文字颜色过渡效果 */
+}
+
+/* 鼠标悬停时的效果 */
+.horizontal-menu a:hover {
+    color: #37c4af;
+    /* 更改文字颜色 */
+}
+
+/* 添加下划线动画效果 */
+.horizontal-menu a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #37c4af;
+    /* 下划线颜色 */
+    transition: width 0.3s;
+    /* 添加下划线宽度过渡效果 */
+}
+
+.horizontal-menu a:hover::before {
+    width: 100%;
+    /* 鼠标悬停时展开下划线 */
+}
+
+main {
+    padding: 20px;
+}
+
+
+.form-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.table {
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
+
+.table thead th {
+    background-color: #86c3f4;
+    color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+#chartContainer {
+    width: 100%;
+    height: 400px;
+}
+
+.process {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.process .title {
+    font-weight: bold;
+}
+
+.process .status {
+    color: green;
+}
+
+.process .actions {
+    display: flex;
+    align-items: center;
+}
+
+.process .actions button {
+    margin-left: 10px;
+}
+
+.process-diagram {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.calendar {
+    text-align: center;
+}
+
+.calendar td {
+    padding: 10px;
+}
+
+.holiday {
+    background-color: #FFD700;
+}
+
+.weekend {
+    background-color: #90EE90;
+}
+
+.attendance-status {
+    width: 100px;
+}
+
+.attendance-status select {
+    width: 100%;
+}
+
+/* 卡片效果 */
+.card {
+    border: 0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+    /* 添加底部边距 */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* 弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-content h4 {
+    margin-bottom: 20px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 自定义样式 */
+.attendance-status {
+    width: 120px;
+    /* 调整考勤状态按钮的宽度 */
+}
+
+.table {
+    width: 80%;
+    /* 调整表格的宽度为80% */
+}

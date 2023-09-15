@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 员工管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告详情</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">员工管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 搜索和筛选员工表单 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="employeeSearch">搜索员工:</label>
+                                <input type="text" class="form-control" id="employeeSearch" placeholder="请输入员工姓名">
+                            </div>
+                            <div class="form-group">
+                                <label for="departmentFilter">按部门筛选:</label>
+                                <select class="form-control" id="departmentFilter">
+                                    <option>部门1</option>
+                                    <option>部门2</option>
+                                    <!-- 可以继续添加更多部门选项 -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="jobFilter">按职位筛选:</label>
+                                <select class="form-control" id="jobFilter">
+                                    <option>职位1</option>
+                                    <option>职位2</option>
+                                    <!-- 可以继续添加更多职位选项 -->
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-block"
+                                onclick="filterEmployees()">筛选</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <!-- 员工列表 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 员工表格 -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>姓名</th>
+                                    <th>部门</th>
+                                    <th>职位</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 这里可以通过后端数据动态生成员工列表 -->
+                                <tr>
+                                    <td>1</td>
+                                    <td>员工1</td>
+                                    <td>部门A</td>
+                                    <td>职位1</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"
+                                            onclick="showEmployeeDetails(1)">查看详情</button>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDeleteEmployee(1)"
+                                            disabled>删除</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>员工2</td>
+                                    <td>部门B</td>
+                                    <td>职位2</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm"
+                                            onclick="showEmployeeDetails(2)">查看详情</button>
+                                        <button class="btn btn-danger btn-sm" onclick="confirmDeleteEmployee(2)"
+                                            disabled>删除</button>
+                                    </td>
+                                </tr>
+                                <!-- 可以继续添加更多员工数据 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 导出员工信息和员工统计与报告模块 -->
+                <div class="text-right mt-4" style="margin-top: 20px;">
+                    <button class="btn btn-success" onclick="exportEmployeeInfo()" disabled>导出员工信息</button>
+                    <button class="btn btn-info ml-2" onclick="showEmployeeStatistics()" disabled>员工统计和报告</button>
+                    <!-- 添加员工按钮 -->
+                    <button class="btn btn-info ml-2" onclick="addEmployee()" disabled>添加员工</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 员工详情弹窗 -->
+        <div class="popup" id="employeeDetailsPopup">
+            <h3 id="employeeDetailsTitle">员工详情</h3>
+            <div id="employeeDetailsContent">
+                <!-- 员工详细信息内容将在此处显示 -->
+            </div>
+            <button class="btn btn-secondary" onclick="closeEmployeeDetailsPopup()">关闭</button>
+        </div>
+
+        <!-- JavaScript代码 -->
+        <script>
+            // 搜索和筛选员工
+            function filterEmployees() {
+                var searchKeyword = document.getElementById('employeeSearch').value;
+                var selectedDepartment = document.getElementById('departmentFilter').value;
+                var selectedJob = document.getElementById('jobFilter').value;
+
+                // 在这里执行筛选员工的操作，使用获取的信息
+                alert('筛选员工：\n搜索关键字：' + searchKeyword + '\n部门：' + selectedDepartment + '\n职位：' + selectedJob);
+            }
+
+            // 查看员工详情
+            function showEmployeeDetails(employeeId) {
+                // 在这里执行获取员工详情的操作，然后在弹窗中显示
+                var employeeDetails = `
+                <p><strong>ID:</strong> ${employeeId}</p>
+                <p><strong>姓名:</strong> 员工${employeeId}</p>
+                <p><strong>部门:</strong> 部门A</p>
+                <p><strong>职位:</strong> 职位${employeeId}</p>
+                <!-- 可以添加更多员工详细信息 -->
+            `;
+                showPopup('员工详情', employeeDetails);
+            }
+
+            // 关闭员工详情弹窗
+            function closeEmployeeDetailsPopup() {
+                closePopup();
+            }
+
+            // 确认删除员工
+            function confirmDeleteEmployee(employeeId) {
+                var confirmDelete = confirm('确认删除员工 ' + employeeId + ' 吗？');
+                if (confirmDelete) {
+                    // 在这里执行删除员工的操作
+                    alert('删除员工：' + employeeId);
+                }
+            }
+
+            // 导出员工信息
+            function exportEmployeeInfo() {
+                // 在这里执行导出员工信息的操作
+                alert('导出员工信息');
+            }
+
+            // 显示员工统计和报告
+            function showEmployeeStatistics() {
+                // 在这里执行显示员工统计和报告的操作
+                alert('员工统计和报告');
+            }
+
+            // 显示弹窗
+            function showPopup(title, content) {
+                var popup = document.getElementById('employeeDetailsPopup');
+                var popupTitle = document.getElementById('employeeDetailsTitle');
+                var popupContent = document.getElementById('employeeDetailsContent');
+                popupTitle.textContent = title;
+                popupContent.innerHTML = content;
+                popup.style.display = 'block';
+            }
+
+            // 关闭弹窗
+            function closePopup() {
+                var popup = document.getElementById('employeeDetailsPopup');
+                popup.style.display = 'none';
+            }
+
+            //重定向到添加员工页面
+            function addEmployee() {
+                window.location.href = "addemployee.html";
+            }
+
+        </script>
+</body>
+
+</html>

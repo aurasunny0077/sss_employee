@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 人脸注册</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style1.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            border: 0;
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center mb-4">人脸注册</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="faceImage">上传人脸图片:</label>
+                                <input type="file" class="form-control-file" id="faceImage">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block" onclick="registerFace()">注册</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function registerFace() {
+            // 在这里执行人脸注册的逻辑
+            // 可以上传用户选择的人脸图片，并将其保存或处理
+
+            // 根据实际情况编写人脸注册逻辑
+            alert("人脸注册成功");
+        }
+    </script>
+</body>
+
+</html>

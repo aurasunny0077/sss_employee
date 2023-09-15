@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 添加员工</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style1.css">
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告管理</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+            <li><a href="../append/dashboard.html">更多</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">添加员工</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <!-- 添加员工表单 -->
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="employeeName">姓名:</label>
+                                <input type="text" class="form-control" id="employeeName" placeholder="请输入员工姓名">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeDepartment">部门:</label>
+                                <select class="form-control" id="employeeDepartment">
+                                    <option>部门1</option>
+                                    <option>部门2</option>
+                                    <!-- 可以继续添加更多部门选项 -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeJob">职位:</label>
+                                <select class="form-control" id="employeeJob">
+                                    <option>职位1</option>
+                                    <option>职位2</option>
+                                    <!-- 可以继续添加更多职位选项 -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeID">身份证:</label>
+                                <input type="text" class="form-control" id="employeeID" placeholder="请输入员工身份证号码">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeAddress">地址:</label>
+                                <input type="text" class="form-control" id="employeeAddress" placeholder="请输入员工地址">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeePhone">电话:</label>
+                                <input type="text" class="form-control" id="employeePhone" placeholder="请输入员工电话号码">
+                            </div>
+                            <!-- 添加更多表单字段，如员工邮箱、入职日期等 -->
+                            <button type="submit" class="btn btn-success btn-block">添加员工</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 在这里可以添加 JavaScript 代码以处理表单提交和员工添加的逻辑
+        // 例如，获取表单字段的值，并将员工信息发送到服务器
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var employeeName = document.getElementById('employeeName').value;
+            var employeeDepartment = document.getElementById('employeeDepartment').value;
+            var employeeJob = document.getElementById('employeeJob').value;
+            var employeeID = document.getElementById('employeeID').value;
+            var employeeAddress = document.getElementById('employeeAddress').value;
+            var employeePhone = document.getElementById('employeePhone').value;
+
+            // 在这里可以将员工信息发送到服务器或进行其他处理
+            alert('添加员工：\n姓名：' + employeeName + '\n部门：' + employeeDepartment + '\n职位：' + employeeJob + '\n身份证：' + employeeID + '\n地址：' + employeeAddress + '\n电话：' + employeePhone);
+        });
+    </script>
+</body>
+
+</html>

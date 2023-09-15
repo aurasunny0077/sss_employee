@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 员工薪资分析</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style2.css">
+    <!-- 引入Chart.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <a href="dashboard.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="salaryanalysis.html">员工薪资分析</a></li>
+            <li><a href="attendancemanagement.html">考勤管理</a></li>
+            <li><a href="employeestats.html">员工统计分析</a></li>
+            <li><a href="employeelookup.html">员工查询与信息管理</a></li>
+            <li><a href="permissions.html">权限管理和审批流程</a></li>
+            <li><a href="../admin/toggleeffect.html">返回</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2 class="text-center mb-4">员工薪资分析</h2>
+
+        <!-- 薪资数据卡片 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        薪资数据
+                    </div>
+                    <div class="card-body">
+                        <!-- 图表容器 -->
+                        <canvas id="salaryChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        // 员工薪资数据
+        var employeeSalaries = [
+            { name: '员工1', salary: 6000 },
+            { name: '员工2', salary: 5000 },
+            { name: '员工3', salary: 7000 },
+            { name: '员工4', salary: 4000 },
+            { name: '员工5', salary: 5500 }
+        ];
+
+        // 计算平均薪资
+        function calculateAverageSalary() {
+            var totalSalary = 0;
+            for (var i = 0; i < employeeSalaries.length; i++) {
+                totalSalary += employeeSalaries[i].salary;
+            }
+            return (totalSalary / employeeSalaries.length).toFixed(2);
+        }
+
+        // 计算最高薪资
+        function calculateMaxSalary() {
+            var maxSalary = 0;
+            for (var i = 0; i < employeeSalaries.length; i++) {
+                if (employeeSalaries[i].salary > maxSalary) {
+                    maxSalary = employeeSalaries[i].salary;
+                }
+            }
+            return maxSalary;
+        }
+
+        // 计算最低薪资
+        function calculateMinSalary() {
+            var minSalary = employeeSalaries[0].salary;
+            for (var i = 1; i < employeeSalaries.length; i++) {
+                if (employeeSalaries[i].salary < minSalary) {
+                    minSalary = employeeSalaries[i].salary;
+                }
+            }
+            return minSalary;
+        }
+
+        // 创建薪资分布图表
+        var ctx = document.getElementById('salaryChart').getContext('2d');
+        var salaryChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: employeeSalaries.map(function (employee) {
+                    return employee.name;
+                }),
+                datasets: [{
+                    label: '薪资',
+                    data: employeeSalaries.map(function (employee) {
+                        return employee.salary;
+                    }),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '薪资（美元）'
+                        }
+                    }
+                }
+            }
+        });
+
+        // 更新薪资统计信息
+        document.querySelector(".card-body").insertAdjacentHTML('beforeend',
+            '<h4 class="mt-4">平均薪资: $' + calculateAverageSalary() + '</h4>' +
+            '<h4>最高薪资: $' + calculateMaxSalary() + '</h4>' +
+            '<h4>最低薪资: $' + calculateMinSalary() + '</h4>');
+    </script>
+</body>
+
+</html>

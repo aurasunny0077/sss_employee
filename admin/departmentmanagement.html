@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>员工之家 - 部门管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style1.css">
+</head>
+
+<body>
+    <nav>
+        <a href="toggleeffect.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="usermanagement.html">用户管理</a></li>
+            <li><a href="departmentmanagement.html">部门管理</a></li>
+            <li><a href="jobmanagement.html">职位管理</a></li>
+            <li><a href="employeemanagement.html">员工管理</a></li>
+            <li><a href="announcementmanagement.html">公告管理</a></li>
+            <li><a href="downloadcenter.html">下载中心</a></li>
+            <li><a href="../append/dashboard.html">更多</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">部门管理</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- 搜索和筛选表单 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="depSearch">搜索部门:</label>
+                                <input type="text" class="form-control" id="depSearch" placeholder="请输入部门名称">
+                            </div>
+                            <button type="button" class="btn btn-secondary btn-block" onclick="filterDeps()">筛选</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <!-- 部门列表 -->
+                <div class="card">
+                    <div class="card-body">
+                        <!-- 部门表格 -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>部门名称</th>
+                                    <th>部门负责人</th>
+                                    <th>成员数量</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="depTableBody">
+                                <!-- 这里可以通过后端数据动态生成部门列表 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 添加部门按钮 -->
+                <div class="text-right mt-4" style="margin-top: 20px;">
+                    <button class="btn btn-primary btn-success" onclick="showAddDepPopup()">添加部门</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 部门详情弹窗 -->
+    <div class="popup" id="depDetailsPopup">
+        <h3 id="depDetailsTitle">部门详情</h3>
+        <div id="depDetailsContent">
+            <!-- 部门详细信息内容将在此处显示 -->
+        </div>
+        <button class="btn btn-secondary" onclick="closeDepDetailsPopup()">关闭</button>
+    </div>
+
+    <!-- 添加部门表单 -->
+    <div class="popup" id="addDepPopup" style="display: none;">
+        <h3>添加部门</h3>
+        <form>
+            <div class="form-group">
+                <label for="newDepName">部门名称:</label>
+                <input type="text" class="form-control" id="newDepName" placeholder="请输入部门名称">
+            </div>
+            <div class="form-group">
+                <label for="newDepManager">部门负责人:</label>
+                <input class="form-control" id="newDepManager" placeholder="请输入部门负责人"></input>
+            </div>
+            <div class="form-group">
+                <label for="newDepMembers">成员数量:</label>
+                <input type="text" class="form-control" id="newDepMembers" placeholder="请输入成员数量">
+            </div>
+            <button type="button" class="btn btn-primary btn-success btn-block" onclick="addDep()">添加部门</button>
+        </form>
+        <button class="btn btn-secondary" onclick="closeAddDepPopup()">取消</button>
+    </div>
+
+    <!-- 在部门数据之前添加以下代码，用于存储原始部门数据 -->
+    <script>
+        var originalDeps = [
+            { id: 1, name: "部门1", manager: "部门负责人1", members: "10" },
+            { id: 2, name: "部门2", manager: "部门负责人2", members: "15" }
+        ];
+    </script>
+
+    <script>
+        // 部门数据
+        var deps = originalDeps.slice(); // 复制原始部门数据以便筛选时使用
+
+        // 初始化部门表格
+        function initDepTable() {
+            var tableBody = document.getElementById('depTableBody');
+
+            // 清空表格内容
+            tableBody.innerHTML = '';
+
+            // 遍历部门数据并添加到表格
+            deps.forEach(function (dep) {
+                var row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${dep.id}</td>
+                    <td>${dep.name}</td>
+                    <td>${dep.manager}</td>
+                    <td>${dep.members}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm"
+                            onclick="showDepDetails(${dep.id})">查看详情</button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="confirmDeleteDep(${dep.id})">删除</button>
+                    </td>
+                `;
+            });
+        }
+
+        // 初始加载部门表格
+        initDepTable();
+
+        // 搜索和筛选部门
+        function filterDeps() {
+            var searchKeyword = document.getElementById('depSearch').value.toLowerCase(); // 将搜索关键字转为小写以不区分大小写
+
+            // 使用筛选关键字来过滤部门
+            deps = originalDeps.filter(function (dep) {
+                return dep.name.toLowerCase().includes(searchKeyword);
+            });
+            // 刷新表格
+            initDepTable();
+        }
+
+        // 添加新部门
+        function addDep() {
+            var name = document.getElementById('newDepName').value;
+            var manager = document.getElementById('newDepManager').value;
+            var members = document.getElementById('newDepMembers').value;
+
+            // 创建新部门对象
+            var newDep = {
+                id: deps.length + 1,
+                name: name,
+                manager: manager,
+                members: members
+            };
+
+            // 将新部门添加到数组中
+            deps.push(newDep);
+
+            // 刷新表格
+            initDepTable();
+
+            // 关闭表单弹窗
+            closeAddDepPopup();
+        }
+
+        // 删除部门
+        function deleteDep(depId) {
+            // 根据 ID 查找并删除部门
+            var indexToDelete = deps.findIndex(function (dep) {
+                return dep.id === depId;
+            });
+
+            if (indexToDelete !== -1) {
+                deps.splice(indexToDelete, 1);
+                // 刷新表格
+                initDepTable();
+            }
+        }
+
+        // 确认删除部门
+        function confirmDeleteDep(depId) {
+            var confirmDelete = confirm('确认删除部门 ' + depId + ' 吗？');
+            if (confirmDelete) {
+                // 删除部门
+                deleteDep(depId);
+            }
+        }
+
+        // 显示添加部门表单弹窗
+        function showAddDepPopup() {
+            document.getElementById('newDepName').value = '';
+            document.getElementById('newDepManager').value = '';
+            document.getElementById('newDepMembers').value = '';
+            document.getElementById('addDepPopup').style.display = 'block';
+        }
+
+        // 关闭添加部门表单弹窗
+        function closeAddDepPopup() {
+            document.getElementById('addDepPopup').style.display = 'none';
+        }
+
+        // 显示部门详情弹窗
+        function showDepDetails(depId) {
+            // 在这里获取部门详细信息
+            var depDetails = getDepDetailsById(depId);
+
+            if (depDetails) {
+                var depDetailsContent = `
+            <p><strong>ID:</strong> ${depDetails.id}</p>
+            <p><strong>部门名称:</strong> ${depDetails.name}</p>
+            <p><strong>部门负责人:</strong> ${depDetails.manager}</p>
+            <p><strong>成员数量:</strong> ${depDetails.members}</p>
+            <!-- 可以继续添加更多部门详细信息 -->
+        `;
+                showPopup('部门详情', depDetailsContent);
+            }
+        }
+
+        // 根据部门ID从部门数据中获取详细信息
+        function getDepDetailsById(depId) {
+            return deps.find(function (dep) {
+                return dep.id === depId;
+            });
+        }
+
+        // 关闭部门详情弹窗
+        function closeDepDetailsPopup() {
+            closePopup();
+        }
+
+        // 显示弹窗
+        function showPopup(title, content) {
+            var popup = document.getElementById('depDetailsPopup');
+            var popupTitle = document.getElementById('depDetailsTitle');
+            var popupContent = document.getElementById('depDetailsContent');
+            popupTitle.textContent = title;
+            popupContent.innerHTML = content;
+            popup.style.display = 'block';
+        }
+
+        // 关闭弹窗
+        function closePopup() {
+            var popup = document.getElementById('depDetailsPopup');
+            popup.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

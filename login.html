@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>登录界面</title>
+</head>
+
+<body>
+    <div class="box">
+        <div class="left"></div>
+        <div class="right">
+            <h4>员工之家系统</h4>
+            <form id="loginForm">
+                <input id="username" class="acc" type="text" placeholder="用户名">
+                <input id="password" class="acc" type="password" placeholder="密码">
+                <input class="submit" type="submit" value="登录">
+            </form>
+            <div class="fn">
+                <a href="admin/faceregistration.html">注册账号</a>
+                <a href="admin/findpassword.html">找回密码</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // 阻止默认的表单提交行为
+
+            // 获取输入的账号和密码
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // 这里可以添加你的账号密码验证逻辑
+            if (username === "sss" && password === "123") {
+                // 如果验证通过，跳转到basisc\dashboard.html
+                window.location.href = "employee/toggleeffect.html";
+            } else if (username === "admin" && password === "szx") {
+                // 如果验证通过，跳转到append\dashboard.html
+                window.location.href = "admin/toggleeffect.html";
+            }
+            else {
+                alert("账号或密码错误"); // 验证失败时显示提示
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>权限管理和审批流程</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
+    <link rel="stylesheet" href="../css/style2.css">
+</head>
+
+<body>
+    <nav>
+        <a href="dashboard.html" class="logo">
+            <img src="../css/logo.png" alt="员工之家">
+        </a>
+        <ul class="horizontal-menu">
+            <li><a href="salaryanalysis.html">员工薪资分析</a></li>
+            <li><a href="attendancemanagement.html">考勤管理</a></li>
+            <li><a href="employeestats.html">员工统计分析</a></li>
+            <li><a href="employeelookup.html">员工查询与信息管理</a></li>
+            <li><a href="permissions.html">权限管理和审批流程</a></li>
+            <li><a href="../admin/toggleeffect.html">返回</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">权限管理和审批流程</h2>
+            </div>
+        </div>
+
+        <!-- 审批流程列表 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="process">
+                            <div class="title">请假申请</div>
+                            <div class="status">已批准</div>
+                            <div class="actions">
+                                <button class="btn btn-primary" onclick="openModal('请假申请详情')">查看详情</button>
+                                <button class="btn btn-danger">删除</button>
+                            </div>
+                        </div>
+                        <div class="process">
+                            <div class="title">加薪申请</div>
+                            <div class="status">待审批</div>
+                            <div class="actions">
+                                <button class="btn btn-primary" onclick="openModal('加薪申请详情')">查看详情</button>
+                                <button class="btn btn-danger">拒绝</button>
+                            </div>
+                        </div>
+                        <!-- 可以继续添加更多审批流程项 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 在页面中添加一个 div 元素来容纳示例图 -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card process-diagram">
+                    <h5 class="card-title">审批流程示例</h5>
+                    <div id="process-diagram">
+                        <!-- 这里将显示示例图 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 弹窗内容 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h4 id="modalTitle"></h4>
+            <p>
+            <div style="text-align: left;">
+                <p>蔡徐坤
+                    员工编号：kk520
+                    所在部门：艺人部门
+                    日期：2023年9月15日
+                </p>
+                <p>
+                    尊敬的经理张先生，
+                    我希望申请一段时间的请假，以处理一些紧急个人事务。请允许我在以下日期内请假：
+                    2023年10月1日 - ：2023年10月10日
+                    请假原因是我计划前往国外养鸡场参加一个慈善活动，并且需要一些时间来做必要的准备和旅行。
+                    我已经与我的经纪团队进行了沟通，并确保在我不在的这段时间内有人可以处理我的工作。
+                </p>
+                <p>
+                    在我请假期间，您可以通过以下方式联系到我：电子邮件：caixukun@email.com。
+                    我将确保在请假结束后迅速回到工作岗位，以确保工作的顺利进行。
+                    但是请注意，如果在我回来后不升职加薪，我可能会继续请假，因为这对我非常重要。
+                    谢谢您的理解和支持。
+                </p>
+            </div>
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript代码 -->
+    <script>
+        function openModal(title) {
+            var modal = document.getElementById("myModal");
+            var modalTitle = document.getElementById("modalTitle");
+            modal.style.display = "block";
+            modalTitle.textContent = title;
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // 在这里可以添加JavaScript代码以处理审批流程的交互
+    </script>
+    <script>
+        // 模拟审批流程数据
+        var approvalProcesses = [
+            {
+                id: 1,
+                title: "请假申请",
+                status: "已批准",
+                details: "员工请假已批准。",
+            },
+            {
+                id: 2,
+                title: "加薪申请",
+                status: "待审批",
+                details: "员工请求加薪，等待审批。",
+            },
+            // 添加更多审批流程项
+        ];
+
+        // 显示审批流程列表
+        function displayApprovalProcesses() {
+            var processContainer = document.querySelector(".card-body");
+            processContainer.innerHTML = ""; // 清空容器
+
+            approvalProcesses.forEach(function (process) {
+                var processDiv = document.createElement("div");
+                processDiv.className = "process";
+                processDiv.innerHTML = `
+                    <div class="title">${process.title}</div>
+                    <div class="status">${process.status}</div>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="openApprovalDetails(${process.id})">查看详情</button>
+                        <button class="btn btn-danger">删除</button>
+                    </div>
+                `;
+                processContainer.appendChild(processDiv);
+            });
+        }
+
+        // 打开审批详情弹窗
+        function openApprovalDetails(id) {
+            var process = approvalProcesses.find(function (process) {
+                return process.id === id;
+            });
+
+            if (process) {
+                var modal = document.getElementById("myModal");
+                var modalTitle = document.getElementById("modalTitle");
+                var modalContent = document.getElementById("modalContent");
+
+                modal.style.display = "block";
+                modalTitle.textContent = process.title;
+                modalContent.textContent = process.details;
+            }
+        }
+
+        // 关闭审批详情弹窗
+        function closeApprovalDetails() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // 页面加载时显示审批流程列表
+        window.onload = function () {
+            displayApprovalProcesses();
+        };
+    </script>
+    <script>
+        // 模拟审批流程数据
+        var approvalProcesses = [
+            {
+                id: 1,
+                title: "请假申请",
+                status: "已批准",
+                details: "员工请假已批准。",
+            },
+            {
+                id: 2,
+                title: "加薪申请",
+                status: "待审批",
+                details: "员工请求加薪，等待审批。",
+            },
+            // 添加更多审批流程项
+        ];
+
+        // 显示审批流程列表
+        function displayApprovalProcesses() {
+            var processContainer = document.querySelector(".card-body");
+            processContainer.innerHTML = ""; // 清空容器
+
+            approvalProcesses.forEach(function (process) {
+                var processDiv = document.createElement("div");
+                processDiv.className = "process";
+                processDiv.innerHTML = `
+                    <div class="title">${process.title}</div>
+                    <div class="status">${process.status}</div>
+                    <div class="actions">
+                        <button class="btn btn-primary" onclick="openApprovalDetails(${process.id})">查看详情</button>
+                        <button class="btn btn-danger" onclick="deleteApprovalProcess(${process.id})">删除</button>
+                    </div>
+                `;
+                processContainer.appendChild(processDiv);
+            });
+        }
+
+        // 打开审批详情弹窗
+        function openApprovalDetails(id) {
+            var process = approvalProcesses.find(function (process) {
+                return process.id === id;
+            });
+
+            if (process) {
+                var modal = document.getElementById("myModal");
+                var modalTitle = document.getElementById("modalTitle");
+                var modalContent = document.getElementById("modalContent");
+
+                modal.style.display = "block";
+                modalTitle.textContent = process.title;
+                modalContent.textContent = process.details;
+            }
+        }
+
+        // 删除审批流程项
+        function deleteApprovalProcess(id) {
+            var indexToRemove = approvalProcesses.findIndex(function (process) {
+                return process.id === id;
+            });
+
+            if (indexToRemove !== -1) {
+                approvalProcesses.splice(indexToRemove, 1);
+                displayApprovalProcesses(); // 重新显示审批流程列表
+            }
+        }
+
+        // 关闭审批详情弹窗
+        function closeApprovalDetails() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        // 页面加载时显示审批流程列表
+        window.onload = function () {
+            displayApprovalProcesses();
+        };
+    </script>
+    <!-- 在 JavaScript 中创建并添加示例图 -->
+    <!-- 在 JavaScript 中创建并添加示例图 -->
+    <script>
+        // 获取示例图容器
+        var diagramContainer = document.getElementById("process-diagram");
+
+        // 创建一个 SVG 元素
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "500");
+        svg.setAttribute("height", "200");
+
+        // 添加示例流程步骤 - 申请
+        var applyStep = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        applyStep.setAttribute("x", "50");
+        applyStep.setAttribute("y", "50");
+        applyStep.setAttribute("width", "120");
+        applyStep.setAttribute("height", "60");
+        applyStep.setAttribute("fill", "#7FB3D5");
+
+        // 添加示例流程步骤文本 - 申请
+        var applyText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        applyText.setAttribute("x", "110");
+        applyText.setAttribute("y", "85");
+        applyText.setAttribute("text-anchor", "middle");
+        applyText.setAttribute("fill", "white");
+        applyText.textContent = "申请";
+
+        // 添加示例流程步骤 - 审批
+        var approveStep = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        approveStep.setAttribute("x", "250");
+        approveStep.setAttribute("y", "50");
+        approveStep.setAttribute("width", "120");
+        approveStep.setAttribute("height", "60");
+        approveStep.setAttribute("fill", "#FECB2E");
+
+        // 添加示例流程步骤文本 - 审批
+        var approveText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        approveText.setAttribute("x", "310");
+        approveText.setAttribute("y", "85");
+        approveText.setAttribute("text-anchor", "middle");
+        approveText.setAttribute("fill", "black");
+        approveText.textContent = "审批";
+
+        // 添加示例流程箭头
+        var arrow = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+        arrow.setAttribute("points", "170,70 190,50 190,90");
+        arrow.setAttribute("fill", "#555");
+
+        // 将流程步骤和箭头添加到 SVG 中
+        svg.appendChild(applyStep);
+        svg.appendChild(applyText);
+        svg.appendChild(approveStep);
+        svg.appendChild(approveText);
+        svg.appendChild(arrow);
+
+        // 将 SVG 添加到示例图容器中
+        diagramContainer.appendChild(svg);
+    </script>
+
+
+</body>
+
+</html>
