@@ -4,4 +4,4 @@
 点击左上角图标可以返回到首页<br>
 点击首页左上角图标可以返回到登陆页面<br>
 现在可以进入<br>
-https://aurasunny0077.github.io/sss_employee.github.io/login.html
+https://aurasunny0077.github.io/sss_employee/login.html
