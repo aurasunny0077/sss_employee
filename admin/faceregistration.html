@@ -1,55 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>员工之家 - 人脸注册</title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="your_custom_styles.css"> <!-- 添加你自定义的样式表 -->
-    <link rel="stylesheet" href="../css/style1.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人脸登录</title>
     <style>
         body {
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            background-image: url('../css/2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            /* 使用 Flex 布局使内容垂直居中 */
+            justify-content: center;
+            /* 水平居中 */
+            align-items: center;
+            /* 垂直居中 */
+            height: 100vh;
+            /* 100% 屏幕高度 */
+            margin: 0;
+            /* 清除默认的页面边距 */
         }
 
         .container {
-            margin-top: 50px;
+            max-width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
         }
 
-        .card {
-            border: 0;
-            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background-color: #da6a32;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #c7643d;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 class="text-center mb-4">人脸注册</h2>
-                        <form>
-                            <div class="form-group">
-                                <label for="faceImage">上传人脸图片:</label>
-                                <input type="file" class="form-control-file" id="faceImage">
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block" onclick="registerFace()">注册</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <h1>人脸登录</h1>
+        <video id="camera" autoplay></video>
+        <button id="startButton">打开摄像头</button>
+        <button id="compareButton" disabled>进行人脸比对</button>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <p id="modalMessage">人脸比对成功，登录成功！</p>
+            <button id="modalConfirmButton">确认</button>
         </div>
     </div>
-    <script>
-        function registerFace() {
-            // 在这里执行人脸注册的逻辑
-            // 可以上传用户选择的人脸图片，并将其保存或处理
 
-            // 根据实际情况编写人脸注册逻辑
-            alert("人脸注册成功");
-        }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const camera = document.getElementById('camera');
+            const startButton = document.getElementById('startButton');
+            const compareButton = document.getElementById('compareButton');
+            const modal = document.getElementById('modal');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalConfirmButton = document.getElementById('modalConfirmButton');
+
+            let isCameraOpen = false;
+
+            // 打开摄像头
+            startButton.addEventListener('click', function () {
+                if (!isCameraOpen) {
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function (stream) {
+                            camera.srcObject = stream;
+                            isCameraOpen = true;
+                            startButton.disabled = true;
+                            compareButton.disabled = false;
+                        })
+                        .catch(function (error) {
+                            alert('无法打开摄像头: ' + error.message);
+                        });
+                }
+            });
+
+            // 进行人脸比对
+            compareButton.addEventListener('click', function () {
+                // 模拟人脸比对过程，可以使用实际的人脸识别库
+                // 这里简单地使用定时器来模拟比对过程
+                modalMessage.textContent = '正在对比中...';
+                setTimeout(function () {
+                    // 模拟比对成功
+                    const isSuccess = Math.random() < 0.5;
+                    if (isSuccess) {
+                        modalMessage.textContent = '人脸比对成功，登录华夏夜之梦！';
+                        // 跳转到另一个页面
+                        setTimeout(function () {
+                            window.location.href = 'toggleeffect.html';
+                        }, 2000);
+                    } else {
+                        modalMessage.textContent = '人脸比对失败，请重试或使用其他登录方式。';
+                    }
+                    modal.style.display = 'block';
+                }, 2000);
+            });
+
+            // 弹窗确认按钮
+            modalConfirmButton.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+        });
     </script>
 </body>
 
