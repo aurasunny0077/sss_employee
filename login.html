@@ -7,9 +7,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
     <title>登录界面</title>
+    <style>
+        /* 添加自定义样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            overflow: hidden;
+            width: 90rem;
+            height: 55rem;
+            background-color: rgba(243, 236, 236, 0.6);
+            border-radius: 1.5rem;
+            margin: 5% auto;
+            box-shadow: 0 0 1rem 0.2rem rgba(142, 124, 124, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .box:hover {
+            transform: scale(1.02);
+            /* 微微展开 */
+            box-shadow: 0 0 1.5rem rgba(142, 124, 124, 0.3);
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="particles-js"></div>
     <div class="box">
         <div class="left"></div>
         <div class="right">
@@ -17,7 +63,7 @@
             <form id="loginForm">
                 <input id="username" class="acc" type="text" placeholder="用户名">
                 <input id="password" class="acc" type="password" placeholder="密码">
-                <input class="submit" type="submit" value="登录">
+                <button class="submit">登录</button>
             </form>
             <div class="fn">
                 <a href="admin/faceregistration.html">注册账号</a>
@@ -26,26 +72,65 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#3498db" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5 },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#3498db", opacity: 0.4, width: 1 }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
+                modes: { grab: { distance: 140, line_linked: { opacity: 1 } } }
+            }
+        });
+
+        const form = document.getElementById("loginForm");
+
+        form.addEventListener("submit", async function (event) {
             event.preventDefault(); // 阻止默认的表单提交行为
 
             // 获取输入的账号和密码
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-            // 这里可以添加你的账号密码验证逻辑
-            if (username === "sss" && password === "123") {
-                // 如果验证通过，跳转到basisc\dashboard.html
-                window.location.href = "employee/toggleeffect.html";
-            } else if (username === "admin" && password === "szx") {
-                // 如果验证通过，跳转到append\dashboard.html
-                window.location.href = "admin/toggleeffect.html";
-            }
-            else {
-                alert("账号或密码错误"); // 验证失败时显示提示
-            }
+            // 模拟延迟以显示加载动画
+            showLoading();
+
+            // 模拟异步请求，实际中需要替换成真正的后端验证逻辑
+            setTimeout(() => {
+                // 这里可以添加你的账号密码验证逻辑
+                if (username === "sss" && password === "123") {
+                    // 如果验证通过，跳转到 employee/toggleeffect.html
+                    window.location.href = "employee/toggleeffect.html";
+                } else if (username === "admin" && password === "szx") {
+                    // 如果验证通过，跳转到 admin/toggleeffect.html
+                    window.location.href = "admin/toggleeffect.html";
+                } else {
+                    hideLoading(); // 隐藏加载动画
+                    alert("账号或密码错误"); // 验证失败时显示提示
+                }
+            }, 2000); // 模拟2秒的验证延迟，实际中请删除此行
         });
+
+        // 显示加载动画
+        function showLoading() {
+            const submitButton = document.querySelector(".submit");
+            submitButton.disabled = true;
+            submitButton.innerHTML = "登录中...";
+        }
+
+        // 隐藏加载动画
+        function hideLoading() {
+            const submitButton = document.querySelector(".submit");
+            submitButton.disabled = false;
+            submitButton.innerHTML = "登录";
+        }
     </script>
 </body>
 
