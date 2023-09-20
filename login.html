@@ -3,154 +3,134 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>人脸登录</title>
+    <link rel="stylesheet" href="css/index.css">
+    <title>登录界面</title>
     <style>
+        /* 添加自定义样式 */
         body {
-            font-family: Arial, sans-serif;
-            background-image: url('../css/2.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            display: flex;
-            /* 使用 Flex 布局使内容垂直居中 */
-            justify-content: center;
-            /* 水平居中 */
-            align-items: center;
-            /* 垂直居中 */
-            height: 100vh;
-            /* 100% 屏幕高度 */
             margin: 0;
-            /* 清除默认的页面边距 */
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
         }
 
-        .container {
-            max-width: 400px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        h1 {
-            font-size: 24px;
-            text-align: center;
-            color: #333;
-        }
-
-        video {
+        #particles-js {
+            position: absolute;
             width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            height: 100%;
         }
 
-        button {
-            background-color: #da6a32;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        .box {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            overflow: hidden;
+            width: 90rem;
+            height: 55rem;
+            background-color: rgba(243, 236, 236, 0.6);
+            border-radius: 1.5rem;
+            margin: 5% auto;
+            box-shadow: 0 0 1rem 0.2rem rgba(142, 124, 124, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        button:hover {
-            background-color: #c7643d;
+        .box:hover {
+            transform: scale(1.02);
+            /* 微微展开 */
+            box-shadow: 0 0 1.5rem rgba(142, 124, 124, 0.3);
         }
 
-        .modal {
-            display: none;
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>人脸登录</h1>
-        <video id="camera" autoplay></video>
-        <button id="startButton">打开摄像头</button>
-        <button id="compareButton" disabled>进行人脸比对</button>
-    </div>
-
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <p id="modalMessage">人脸比对成功，登录成功！</p>
-            <button id="modalConfirmButton">确认</button>
+    <div id="particles-js"></div>
+    <div class="box">
+        <div class="left"></div>
+        <div class="right">
+            <h4>员工之家系统</h4>
+            <form id="loginForm">
+                <input id="username" class="acc" type="text" placeholder="用户名">
+                <input id="password" class="acc" type="password" placeholder="密码">
+                <button class="submit">登录</button>
+            </form>
+            <div class="fn">
+                <a href="admin/faceregistration.html">人脸登录</a>
+                <a href="admin/findpassword.html">找回密码</a>
+            </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const camera = document.getElementById('camera');
-            const startButton = document.getElementById('startButton');
-            const compareButton = document.getElementById('compareButton');
-            const modal = document.getElementById('modal');
-            const modalMessage = document.getElementById('modalMessage');
-            const modalConfirmButton = document.getElementById('modalConfirmButton');
-
-            let isCameraOpen = false;
-
-            // 打开摄像头
-            startButton.addEventListener('click', function () {
-                if (!isCameraOpen) {
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function (stream) {
-                            camera.srcObject = stream;
-                            isCameraOpen = true;
-                            startButton.disabled = true;
-                            compareButton.disabled = false;
-                        })
-                        .catch(function (error) {
-                            alert('无法打开摄像头: ' + error.message);
-                        });
-                }
-            });
-
-            // 进行人脸比对
-            compareButton.addEventListener('click', function () {
-                // 模拟人脸比对过程，可以使用实际的人脸识别库
-                // 这里简单地使用定时器来模拟比对过程
-                modalMessage.textContent = '正在对比中...';
-                setTimeout(function () {
-                    // 模拟比对成功
-                    const isSuccess = Math.random() < 0.5;
-                    if (isSuccess) {
-                        modalMessage.textContent = '人脸比对成功，登录华夏夜之梦！';
-                        // 跳转到另一个页面
-                        setTimeout(function () {
-                            window.location.href = 'toggleeffect.html';
-                        }, 2000);
-                    } else {
-                        modalMessage.textContent = '人脸比对失败，请重试或使用其他登录方式。';
-                    }
-                    modal.style.display = 'block';
-                }, 2000);
-            });
-
-            // 弹窗确认按钮
-            modalConfirmButton.addEventListener('click', function () {
-                modal.style.display = 'none';
-            });
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#3498db" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5 },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#3498db", opacity: 0.4, width: 1 }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" } },
+                modes: { grab: { distance: 140, line_linked: { opacity: 1 } } }
+            }
         });
+
+        const form = document.getElementById("loginForm");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault(); // 阻止默认的表单提交行为
+
+            // 获取输入的账号和密码
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // 模拟延迟以显示加载动画
+            showLoading();
+
+            // 模拟异步请求，实际中需要替换成真正的后端验证逻辑
+            setTimeout(() => {
+                // 这里可以添加你的账号密码验证逻辑
+                if (username === "sss" && password === "123") {
+                    // 如果验证通过，跳转到 employee/toggleeffect.html
+                    window.location.href = "employee/toggleeffect.html";
+                } else if (username === "admin" && password === "szx") {
+                    // 如果验证通过，跳转到 admin/toggleeffect.html
+                    window.location.href = "admin/toggleeffect.html";
+                } else {
+                    hideLoading(); // 隐藏加载动画
+                    alert("账号或密码错误"); // 验证失败时显示提示
+                }
+            }, 2000); // 模拟2秒的验证延迟，实际中请删除此行
+        });
+
+        // 显示加载动画
+        function showLoading() {
+            const submitButton = document.querySelector(".submit");
+            submitButton.disabled = true;
+            submitButton.innerHTML = "登录中...";
+        }
+
+        // 隐藏加载动画
+        function hideLoading() {
+            const submitButton = document.querySelector(".submit");
+            submitButton.disabled = false;
+            submitButton.innerHTML = "登录";
+        }
     </script>
 </body>
 
